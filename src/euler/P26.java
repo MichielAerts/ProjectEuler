@@ -9,39 +9,54 @@ import java.text.DecimalFormat;
  */
 public class P26 {
 
+    static int curLongest = 6;
+
     public static void main(String args[]) {
 
         long millis_start = System.currentTimeMillis();
 
-        int max = 100;
+        int max = 1000;
         int longestRecur = 7;
-        int curRecur = 0;
-        int precision = 100;
+        int precision = 6000;
 
-        for (int i = 10; i < max; i++) {
+        for (int i = 1; i < max; i++) {
             BigDecimal one = BigDecimal.ONE;
             BigDecimal div = BigDecimal.valueOf(i);
             BigDecimal breuk = one.divide(div, precision, RoundingMode.HALF_UP);
 
-            curRecur = findLongestRecur(breuk, longestRecur);
+            findLongestRecur(breuk, i);
 
-            if (curRecur > longestRecur) {
-                longestRecur = curRecur;
-                System.out.println("langste herhaling: " + longestRecur + "breuk: 1/" + i);
-            }
         }
         long millis_stop = System.currentTimeMillis();
         System.out.println("Solution took " + (millis_stop - millis_start) + " milliseconds to complete");
 
     }
 
-    static int findLongestRecur(BigDecimal breukD, int curLongest) {
+    static void findLongestRecur(BigDecimal breukD, int div) {
 
-
-        //https://www.quora.com/Write-a-program-to-return-the-longest-repeating-substring-in-a-string
         String breuk = breukD.toString().substring(10);
-        System.out.println(breuk);
-        return 0;
+
+        int max = 1000;
+        int i = 6;
+
+        while (i < max) {
+            if (breuk.substring(0, i).equals(breuk.substring(i, 2 * i)) && breuk.substring(i, 2 * i).equals(breuk.substring(2 * i, 3 * i))) {
+                if (breuk.substring(0, 6).equals(breuk.substring(6, 12))) {
+                    i++;
+                    break;
+                }
+                if (i > 6) {
+
+                    if (i > curLongest) {
+                        System.out.println("length: " + i + ", divisor: " + div);
+                        curLongest = i;
+                    }
+                    i++;
+                    break;
+                }
+            }
+            i++;
+        }
     }
 
 }
