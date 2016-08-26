@@ -37,6 +37,10 @@ public class P10 {
     public static boolean isPrime(long c) {
         boolean isPrime = true;
 
+        if (c < 1) {
+            return false;
+        }
+
         for (long i = 2; i <= Math.sqrt(c); i++ ) {
             if (c % i == 0) {
                 isPrime = false;
